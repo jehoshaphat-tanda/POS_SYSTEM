@@ -1,0 +1,546 @@
+* { /* Apply predictable box sizing to every element. */
+box-sizing: border-box; /* Include padding and borders inside declared widths. */
+} /* End the global box-sizing rule. */
+:root { /* Define reusable design variables. */
+--bg: #f4f7fb; /* Store the main page background color. */
+--card: #ffffff; /* Store the panel background color. */
+--text: #172033; /* Store the main text color. */
+--muted: #6f7b8f; /* Store the secondary text color. */
+--line: #e4e9f1; /* Store the standard border color. */
+--primary: #2457ff; /* Store the primary action color. */
+--primary-dark: #1742cf; /* Store the darker primary action color. */
+--success: #138a52; /* Store the success state color. */
+--warning: #b87400; /* Store the warning state color. */
+--danger: #c73535; /* Store the danger state color. */
+--shadow: 0 16px 40px rgba(25, 40, 70, 0.08); /* Store a soft panel shadow. */
+} /* Finish the design variables. */
+body { /* Style the whole application body. */
+margin: 0; /* Remove the browser's default body margin. */
+font-family: Arial, Helvetica, sans-serif; /* Use a widely available clean interface font. */
+background: var(--bg); /* Apply the light application background. */
+color: var(--text); /* Apply the main text color. */
+line-height: 1.5; /* Improve text readability. */
+} /* Finish the body styles. */
+a { /* Style hyperlinks consistently. */
+color: var(--primary); /* Use the primary color for links. */
+text-decoration: none; /* Remove the default underline. */
+} /* Finish the link styles. */
+a:hover { /* Style hovered links. */
+text-decoration: underline; /* Add an underline on hover for clear affordance. */
+} /* Finish the hover link styles. */
+button, input, select { /* Apply a consistent font to form controls. */
+font: inherit; /* Inherit the page font from the surrounding element. */
+} /* Finish the form font rule. */
+.app-shell { /* Create the main application layout. */
+display: flex; /* Put the sidebar and content side by side. */
+min-height: 100vh; /* Make the layout fill the viewport height. */
+} /* Finish the application layout. */
+.sidebar { /* Style the left navigation sidebar. */
+width: 250px; /* Give the sidebar a stable desktop width. */
+background: #111827; /* Use a dark navigation background. */
+color: #fff; /* Use white text in the sidebar. */
+padding: 24px 16px; /* Add inner spacing around sidebar content. */
+display: flex; /* Use flexbox for vertical organization. */
+flex-direction: column; /* Stack sidebar sections vertically. */
+position: sticky; /* Keep the sidebar visible during normal desktop scrolling. */
+top: 0; /* Stick the sidebar to the top edge. */
+height: 100vh; /* Make the sidebar fill the viewport height. */
+} /* Finish the sidebar styles. */
+.brand { /* Style the brand block. */
+display: flex; /* Place logo and text next to each other. */
+align-items: center; /* Vertically center the logo and text. */
+gap: 12px; /* Add spacing between logo and brand text. */
+padding: 0 8px 28px; /* Space the brand away from the navigation. */
+} /* Finish the brand block. */
+.brand-mark, .login-logo { /* Style the POS logo shapes. */
+width: 44px; /* Set the logo width. */
+height: 44px; /* Set the logo height. */
+border-radius: 14px; /* Round the logo corners. */
+display: grid; /* Use grid to center the logo letter. */
+place-items: center; /* Center the logo letter in both directions. */
+background: linear-gradient(135deg, #3b82f6, #7c3aed); /* Give the logo a modern gradient. */
+color: #fff; /* Keep the logo letter white. */
+font-weight: 800; /* Make the logo letter bold. */
+} /* Finish the logo styles. */
+.brand-text { /* Style the brand text container. */
+display: flex; /* Use flexbox for the brand text lines. */
+flex-direction: column; /* Stack the title and subtitle. */
+} /* Finish the brand text container. */
+.brand-text span, .user-card span { /* Style secondary sidebar text. */
+font-size: 12px; /* Keep secondary information compact. */
+color: #a9b4c8; /* Use softer sidebar text. */
+} /* Finish the secondary sidebar text. */
+.nav-menu { /* Style the navigation list. */
+display: grid; /* Stack navigation links with consistent spacing. */
+gap: 6px; /* Add a small gap between navigation items. */
+} /* Finish the navigation list. */
+.nav-link { /* Style each navigation link. */
+padding: 11px 12px; /* Make each link easy to click. */
+border-radius: 10px; /* Round navigation link corners. */
+color: #d5dded; /* Use readable light text. */
+font-weight: 700; /* Make navigation labels prominent. */
+} /* Finish navigation link styles. */
+.nav-link:hover, .nav-link.active { /* Style hovered and active navigation links. */
+background: #1f2937; /* Give active links a lighter dark background. */
+color: #fff; /* Use white text on active links. */
+text-decoration: none; /* Prevent underlines in the navigation. */
+} /* Finish navigation state styles. */
+.sidebar-bottom { /* Style the bottom sidebar section. */
+margin-top: auto; /* Push the user card and logout link to the bottom. */
+} /* Finish sidebar bottom styling. */
+.user-card { /* Style the logged-in user card. */
+display: flex; /* Put avatar and user text side by side. */
+align-items: center; /* Vertically align the user details. */
+gap: 10px; /* Add space between avatar and text. */
+padding: 12px 8px; /* Add inner spacing. */
+} /* Finish user card styles. */
+.user-card div:last-child { /* Style the text container within the user card. */
+display: flex; /* Use flexbox for the two text lines. */
+flex-direction: column; /* Stack the name and role. */
+min-width: 0; /* Allow long names to shrink correctly. */
+} /* Finish user text styles. */
+.avatar { /* Style the user avatar circle. */
+width: 38px; /* Set avatar width. */
+height: 38px; /* Set avatar height. */
+border-radius: 50%; /* Make the avatar circular. */
+background: #374151; /* Give the avatar a neutral background. */
+display: grid; /* Use grid for centering. */
+place-items: center; /* Center the initial. */
+font-weight: 800; /* Make the initial bold. */
+flex: 0 0 auto; /* Keep the avatar from shrinking. */
+} /* Finish avatar styles. */
+.logout-link { /* Style the logout link. */
+display: block; /* Make the link fill the available width. */
+padding: 10px 8px; /* Add clickable spacing. */
+color: #ffb4b4; /* Use a soft danger color to indicate logout. */
+} /* Finish logout styles. */
+.main-content { /* Style the main content area. */
+flex: 1; /* Let the content use the remaining screen width. */
+min-width: 0; /* Prevent wide tables from forcing layout overflow. */
+} /* Finish main content styles. */
+.topbar { /* Style the page header. */
+display: flex; /* Put title and action side by side. */
+justify-content: space-between; /* Push the title and action apart. */
+align-items: center; /* Vertically align header content. */
+padding: 26px 30px; /* Add page header spacing. */
+background: #fff; /* Give the header a clean white background. */
+border-bottom: 1px solid var(--line); /* Separate the header from the page content. */
+} /* Finish the topbar styles. */
+.topbar h1 { /* Style page headings. */
+margin: 0; /* Remove heading default margin. */
+font-size: 26px; /* Use a strong readable heading size. */
+} /* Finish page heading styles. */
+.topbar p { /* Style the header date. */
+margin: 3px 0 0; /* Keep the date close to the heading. */
+color: var(--muted); /* Use muted text for the date. */
+} /* Finish the header date styles. */
+.content-area { /* Style the main page content wrapper. */
+padding: 30px; /* Give page content comfortable breathing room. */
+} /* Finish page content styles. */
+.stats-grid { /* Create the dashboard statistics layout. */
+display: grid; /* Use a grid for the statistic cards. */
+grid-template-columns: repeat(4, minmax(0, 1fr)); /* Create four equal desktop columns. */
+gap: 16px; /* Space the cards evenly. */
+margin-bottom: 20px; /* Separate stats from the next section. */
+} /* Finish statistics grid styles. */
+.stat-card { /* Style each statistic card. */
+background: var(--card); /* Use a white card background. */
+border: 1px solid var(--line); /* Outline the card. */
+border-radius: 16px; /* Round card corners. */
+padding: 20px; /* Add inner card spacing. */
+box-shadow: var(--shadow); /* Add a subtle depth effect. */
+display: flex; /* Use flexbox for card content. */
+flex-direction: column; /* Stack card text vertically. */
+gap: 4px; /* Keep card lines close together. */
+} /* Finish statistic card styles. */
+.stat-card span { /* Style stat labels. */
+color: var(--muted); /* Use muted text for labels. */
+font-size: 13px; /* Keep labels compact. */
+font-weight: 700; /* Emphasize the label slightly. */
+} /* Finish stat label styles. */
+.stat-card strong { /* Style stat values. */
+font-size: 24px; /* Make the main number prominent. */
+} /* Finish stat value styles. */
+.stat-card small { /* Style stat helper text. */
+color: var(--muted); /* Use muted text for supporting information. */
+} /* Finish stat helper styles. */
+.two-col, .sale-layout { /* Create the common two-column page layout. */
+display: grid; /* Use CSS grid for the columns. */
+grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr); /* Give the primary panel slightly more room. */
+gap: 20px; /* Separate the two columns. */
+} /* Finish the two-column layout. */
+.panel { /* Style reusable content panels. */
+background: var(--card); /* Use a white panel background. */
+border: 1px solid var(--line); /* Outline the panel. */
+border-radius: 16px; /* Round panel corners. */
+box-shadow: var(--shadow); /* Add subtle depth. */
+padding: 22px; /* Add panel inner spacing. */
+} /* Finish panel styles. */
+.panel-head { /* Style panel headings. */
+display: flex; /* Put heading information and actions on one line. */
+justify-content: space-between; /* Separate title and actions. */
+align-items: center; /* Vertically align heading content. */
+gap: 12px; /* Keep heading content spaced. */
+margin-bottom: 16px; /* Separate headings from panel contents. */
+} /* Finish panel heading styles. */
+.panel-head h2 { /* Style panel title text. */
+margin: 0; /* Remove default heading margin. */
+font-size: 18px; /* Use a compact panel heading size. */
+} /* Finish panel title styles. */
+.muted { /* Style secondary text. */
+color: var(--muted); /* Use the shared muted color. */
+} /* Finish muted text style. */
+.small { /* Style compact helper text. */
+font-size: 12px; /* Use small supporting text. */
+} /* Finish small text style. */
+.badge { /* Style small count badges. */
+background: #eef2ff; /* Use a light primary background. */
+color: var(--primary); /* Use the primary text color. */
+padding: 5px 9px; /* Add compact badge spacing. */
+border-radius: 999px; /* Make the badge pill-shaped. */
+font-size: 12px; /* Keep badge text compact. */
+font-weight: 800; /* Make the count stand out. */
+white-space: nowrap; /* Prevent the badge from wrapping. */
+} /* Finish badge styles. */
+.search-form { /* Style reusable search forms. */
+display: flex; /* Put search input and actions on one row. */
+gap: 8px; /* Add space between search controls. */
+margin-bottom: 16px; /* Separate search controls from tables. */
+} /* Finish search form styles. */
+.search-form input, .search-input { /* Style search input fields. */
+flex: 1; /* Let search inputs use available horizontal space. */
+min-width: 0; /* Prevent flex overflow. */
+padding: 11px 12px; /* Add comfortable input spacing. */
+border: 1px solid var(--line); /* Give inputs a visible border. */
+border-radius: 10px; /* Round input corners. */
+outline: none; /* Remove the default browser outline. */
+} /* Finish search input styles. */
+.search-form input:focus, .search-input:focus, input:focus, select:focus { /* Style focused form fields. */
+border-color: #8da4ff; /* Highlight the focused field. */
+box-shadow: 0 0 0 3px rgba(36, 87, 255, 0.12); /* Add an accessible focus ring. */
+} /* Finish focus styles. */
+label { /* Style form labels. */
+display: grid; /* Stack label text and control. */
+gap: 6px; /* Add spacing between label and control. */
+font-size: 13px; /* Keep form labels compact. */
+font-weight: 700; /* Make form labels easy to scan. */
+margin-bottom: 14px; /* Separate form fields. */
+} /* Finish label styles. */
+label input, label select { /* Style form controls inside labels. */
+width: 100%; /* Make controls fill the available form width. */
+padding: 11px 12px; /* Add comfortable control spacing. */
+border: 1px solid var(--line); /* Give controls a visible border. */
+border-radius: 10px; /* Round control corners. */
+background: #fff; /* Keep input backgrounds white. */
+} /* Finish label control styles. */
+.btn { /* Style standard buttons and button-like links. */
+display: inline-flex; /* Let content align cleanly inside the button. */
+align-items: center; /* Vertically center button content. */
+justify-content: center; /* Horizontally center button content. */
+gap: 6px; /* Allow spacing between optional button elements. */
+padding: 10px 14px; /* Add comfortable click padding. */
+border: 1px solid var(--line); /* Give standard buttons an outline. */
+border-radius: 10px; /* Round button corners. */
+background: #fff; /* Use a white standard button background. */
+color: var(--text); /* Use the main text color. */
+cursor: pointer; /* Show a pointer cursor for clickable buttons. */
+font-weight: 800; /* Make button labels prominent. */
+text-decoration: none; /* Remove underline from button links. */
+} /* Finish standard button styles. */
+.btn:hover { /* Style standard buttons on hover. */
+text-decoration: none; /* Keep button links clean on hover. */
+transform: translateY(-1px); /* Give a subtle interaction effect. */
+} /* Finish standard button hover. */
+.btn.primary { /* Style the primary action button. */
+background: var(--primary); /* Use the main primary action color. */
+color: #fff; /* Use white text on primary buttons. */
+border-color: var(--primary); /* Match the border to the primary background. */
+} /* Finish primary button styles. */
+.btn.primary:hover { /* Style primary buttons on hover. */
+background: var(--primary-dark); /* Darken the button on hover. */
+} /* Finish primary hover style. */
+.btn.full { /* Make full-width action buttons. */
+width: 100%; /* Fill the available form width. */
+} /* Finish full button styles. */
+.btn.small { /* Style compact action buttons. */
+padding: 7px 10px; /* Reduce compact button padding. */
+font-size: 12px; /* Reduce compact button text size. */
+} /* Finish small button styles. */
+.danger-btn { /* Style destructive buttons. */
+color: var(--danger); /* Use the danger color for destructive text. */
+} /* Finish danger button styles. */
+.inline-form { /* Style forms that appear inline with other actions. */
+display: inline; /* Keep the form inline rather than block-level. */
+} /* Finish inline form styles. */
+.actions { /* Style action table cells. */
+display: flex; /* Align multiple actions horizontally. */
+gap: 6px; /* Add small spacing between actions. */
+align-items: center; /* Vertically center the actions. */
+} /* Finish action cell styles. */
+.table-wrap { /* Make wide tables responsive. */
+width: 100%; /* Use the full panel width. */
+overflow-x: auto; /* Allow horizontal scrolling on narrow screens. */
+} /* Finish table wrapper styles. */
+table { /* Style data tables. */
+width: 100%; /* Make the table fill the available width. */
+border-collapse: collapse; /* Merge cell borders into a clean grid. */
+} /* Finish table style. */
+th, td { /* Style table cells. */
+padding: 12px 10px; /* Add comfortable cell spacing. */
+border-bottom: 1px solid var(--line); /* Separate rows visually. */
+text-align: left; /* Align table values consistently. */
+vertical-align: top; /* Align multi-line cell content to the top. */
+} /* Finish cell styles. */
+th { /* Style table headings. */
+font-size: 12px; /* Use compact heading text. */
+text-transform: uppercase; /* Make table headers easy to scan. */
+letter-spacing: 0.04em; /* Add slight heading spacing. */
+color: var(--muted); /* Use muted table heading text. */
+} /* Finish table heading styles. */
+.right { /* Align numeric values to the right. */
+text-align: right; /* Put money amounts on the right edge. */
+} /* Finish right alignment. */
+.empty { /* Style empty-state messages. */
+padding: 30px 10px; /* Give empty states generous spacing. */
+text-align: center; /* Center empty-state messages. */
+color: var(--muted); /* Use muted text to reduce visual weight. */
+} /* Finish empty state. */
+.alert { /* Style success and error notices. */
+padding: 12px 14px; /* Add notice spacing. */
+border-radius: 10px; /* Round notice corners. */
+margin-bottom: 16px; /* Separate notice from the content below. */
+font-weight: 700; /* Make notice text easy to see. */
+transition: opacity 0.3s ease, transform 0.3s ease; /* Animate alert hiding smoothly. */
+} /* Finish alert styles. */
+.alert.success { /* Style success alerts. */
+background: #e9f8f0; /* Use a light success background. */
+color: var(--success); /* Use the success text color. */
+} /* Finish success alert. */
+.alert.error { /* Style error alerts. */
+background: #fdecec; /* Use a light danger background. */
+color: var(--danger); /* Use the danger text color. */
+} /* Finish error alert. */
+.hide-alert { /* Style an alert while it disappears. */
+opacity: 0; /* Fade the alert out. */
+transform: translateY(-4px); /* Lift the alert slightly while hiding it. */
+} /* Finish alert hide state. */
+.status { /* Style stock and account status badges. */
+display: inline-flex; /* Keep the status compact. */
+padding: 4px 8px; /* Add badge spacing. */
+border-radius: 999px; /* Make the status pill-shaped. */
+font-size: 11px; /* Use compact status text. */
+font-weight: 800; /* Emphasize the status. */
+} /* Finish status badge styles. */
+.status.good { /* Style healthy status badges. */
+background: #e9f8f0; /* Use a light success background. */
+color: var(--success); /* Use success text. */
+} /* Finish good status. */
+.status.warning { /* Style low-stock warning badges. */
+background: #fff5df; /* Use a light warning background. */
+color: var(--warning); /* Use warning text. */
+} /* Finish warning status. */
+.status.danger { /* Style danger status badges. */
+background: #fdecec; /* Use a light danger background. */
+color: var(--danger); /* Use danger text. */
+} /* Finish danger status. */
+.danger-text { /* Style dangerous stock numbers. */
+color: var(--danger); /* Make zero stock visually prominent. */
+} /* Finish danger stock style. */
+.stock-list { /* Style the low-stock product list. */
+display: grid; /* Stack stock items consistently. */
+gap: 4px; /* Add a little spacing between stock rows. */
+} /* Finish stock list styles. */
+.stock-item { /* Style one low-stock item. */
+display: flex; /* Put product information and quantity side by side. */
+justify-content: space-between; /* Push quantity to the right. */
+align-items: center; /* Vertically center row content. */
+padding: 12px 0; /* Add row spacing. */
+border-bottom: 1px solid var(--line); /* Separate stock rows. */
+} /* Finish stock item styles. */
+.stock-item div { /* Style stock item text. */
+display: flex; /* Use flexbox for name and price. */
+flex-direction: column; /* Stack product name and price. */
+} /* Finish stock item text styles. */
+.stock-item span { /* Style stock item price. */
+font-size: 12px; /* Keep price compact. */
+color: var(--muted); /* Use muted price text. */
+} /* Finish stock item price style. */
+.stock-number { /* Style stock quantities. */
+font-size: 22px; /* Make stock quantities prominent. */
+} /* Finish stock number style. */
+.product-grid { /* Create the product selection grid. */
+display: grid; /* Use a grid of product buttons. */
+grid-template-columns: repeat(2, minmax(0, 1fr)); /* Show two product buttons per row. */
+gap: 10px; /* Separate product buttons. */
+margin-top: 14px; /* Add space below the search box. */
+} /* Finish product grid styles. */
+.product-tile { /* Style clickable sale product buttons. */
+text-align: left; /* Align product information to the left. */
+padding: 14px; /* Add comfortable product tile spacing. */
+border: 1px solid var(--line); /* Outline each product tile. */
+border-radius: 14px; /* Round product tile corners. */
+background: #fff; /* Use a clean tile background. */
+cursor: pointer; /* Show that product tiles are clickable. */
+display: flex; /* Use flexbox for tile content. */
+flex-direction: column; /* Stack name, price and stock. */
+gap: 3px; /* Keep tile text compact. */
+} /* Finish product tile styles. */
+.product-tile:hover { /* Style product tiles on hover. */
+border-color: #8da4ff; /* Highlight the product tile border. */
+box-shadow: 0 8px 20px rgba(36, 87, 255, 0.09); /* Add a subtle hover shadow. */
+} /* Finish product tile hover. */
+.product-tile span { /* Style product prices in tiles. */
+font-weight: 800; /* Emphasize the price. */
+color: var(--primary); /* Use the primary color for prices. */
+} /* Finish tile price styles. */
+.product-tile small { /* Style product stock information. */
+color: var(--muted); /* Use muted stock information. */
+} /* Finish tile stock styles. */
+.hidden { /* Hide elements that should not currently be visible. */
+display: none !important; /* Force the element to be hidden. */
+} /* Finish hidden utility class. */
+.sale-summary { /* Style the sale payment summary. */
+display: grid; /* Stack summary sections. */
+gap: 10px; /* Add spacing between summary fields. */
+margin-top: 18px; /* Separate the summary from the cart table. */
+padding-top: 16px; /* Add top spacing. */
+border-top: 1px solid var(--line); /* Separate payment information from cart rows. */
+} /* Finish sale summary styles. */
+.sale-summary > div { /* Style summary amount rows. */
+display: flex; /* Put summary labels and values on a row. */
+justify-content: space-between; /* Push values to the right. */
+align-items: center; /* Vertically center summary content. */
+} /* Finish summary rows. */
+.sale-summary strong { /* Style total and change values. */
+font-size: 18px; /* Make money values prominent. */
+} /* Finish summary value styles. */
+.qty-input { /* Style cart quantity inputs. */
+width: 80px; /* Keep quantity controls compact. */
+padding: 8px; /* Add input spacing. */
+border: 1px solid var(--line); /* Outline quantity controls. */
+border-radius: 8px; /* Round quantity control corners. */
+} /* Finish quantity input style. */
+.receipt { /* Style the sale receipt panel. */
+max-width: 850px; /* Limit receipt width for readability. */
+margin: 0 auto; /* Center the receipt on the page. */
+} /* Finish receipt panel style. */
+.receipt-head { /* Style the receipt heading. */
+display: flex; /* Put receipt title and invoice number on one row. */
+justify-content: space-between; /* Push invoice number to the right. */
+align-items: flex-start; /* Align content to the top. */
+margin-bottom: 22px; /* Separate heading from receipt metadata. */
+} /* Finish receipt heading style. */
+.receipt-head h2 { /* Style receipt title. */
+margin: 0; /* Remove default heading margin. */
+} /* Finish receipt title style. */
+.receipt-head span { /* Style receipt subtitle. */
+color: var(--muted); /* Use muted subtitle text. */
+} /* Finish receipt subtitle style. */
+.receipt-meta { /* Style receipt metadata. */
+display: grid; /* Use a simple two-column metadata grid. */
+grid-template-columns: repeat(2, 1fr); /* Create two equal metadata columns. */
+gap: 12px; /* Separate metadata boxes. */
+margin-bottom: 18px; /* Separate metadata from items. */
+} /* Finish receipt metadata layout. */
+.receipt-meta div { /* Style one metadata box. */
+padding: 12px; /* Add metadata box spacing. */
+background: #f8fafc; /* Give metadata a subtle background. */
+border-radius: 10px; /* Round metadata box corners. */
+display: flex; /* Use flexbox for metadata text. */
+flex-direction: column; /* Stack metadata label and value. */
+} /* Finish metadata box style. */
+.receipt-meta span { /* Style metadata labels. */
+color: var(--muted); /* Use muted metadata labels. */
+font-size: 12px; /* Keep metadata labels compact. */
+} /* Finish metadata label style. */
+.receipt-total { /* Style the receipt totals section. */
+margin-top: 18px; /* Separate totals from items. */
+padding-top: 16px; /* Add top spacing. */
+border-top: 1px solid var(--line); /* Separate totals from item rows. */
+display: grid; /* Stack total rows. */
+gap: 8px; /* Add small spacing between total rows. */
+} /* Finish receipt total area. */
+.receipt-total div { /* Style one receipt total row. */
+display: flex; /* Put total label and value on one row. */
+justify-content: space-between; /* Push values to the right. */
+} /* Finish receipt total row. */
+.receipt-total div:first-child strong { /* Emphasize the main total. */
+font-size: 20px; /* Make the total larger. */
+} /* Finish main total emphasis. */
+.receipt-actions { /* Style receipt action buttons. */
+display: flex; /* Place actions in a row. */
+justify-content: flex-end; /* Align actions to the right. */
+gap: 8px; /* Separate receipt actions. */
+margin-top: 20px; /* Separate actions from totals. */
+} /* Finish receipt action style. */
+.principal-box { /* Style the principal administrator login information box. */
+margin-top: 20px; /* Separate the box from the login form. */
+padding: 14px; /* Add box spacing. */
+background: #f6f8ff; /* Give the box a subtle primary-tinted background. */
+border: 1px solid #dbe2ff; /* Outline the principal information box. */
+border-radius: 12px; /* Round the box corners. */
+font-size: 13px; /* Use compact information text. */
+} /* Finish principal box style. */
+.login-page { /* Style the dedicated login page. */
+min-height: 100vh; /* Fill the full viewport height. */
+display: grid; /* Use grid for centering the login card. */
+place-items: center; /* Center the card horizontally and vertically. */
+padding: 20px; /* Give the card breathing room on small screens. */
+} /* Finish login page style. */
+.login-card { /* Style the login card. */
+width: min(100%, 420px); /* Limit login width while allowing narrow screens. */
+background: #fff; /* Use a white login card. */
+padding: 30px; /* Add generous card spacing. */
+border-radius: 20px; /* Round login card corners. */
+box-shadow: var(--shadow); /* Add a soft card shadow. */
+border: 1px solid var(--line); /* Outline the login card. */
+text-align: center; /* Center the main login heading and logo. */
+} /* Finish login card style. */
+.login-logo { /* Style the login logo specifically. */
+margin: 0 auto 14px; /* Center the logo and separate it from the title. */
+width: 60px; /* Use a larger login logo width. */
+height: 60px; /* Use a larger login logo height. */
+font-size: 24px; /* Make the login logo letter larger. */
+} /* Finish login logo style. */
+.login-card h1 { /* Style the login title. */
+margin-bottom: 6px; /* Keep the subtitle close to the title. */
+} /* Finish login title style. */
+.login-card form { /* Style the login form. */
+text-align: left; /* Align login labels and inputs to the left. */
+margin-top: 18px; /* Separate the form from the introductory text. */
+} /* Finish login form style. */
+code { /* Style displayed demo credentials. */
+background: #eef2f7; /* Give code text a subtle background. */
+padding: 2px 5px; /* Add compact code padding. */
+border-radius: 5px; /* Round code background corners. */
+} /* Finish code style. */
+.protected-label { /* Style the protected account label. */
+font-size: 12px; /* Keep the label compact. */
+font-weight: 800; /* Make the label easy to see. */
+color: var(--muted); /* Use muted text because it is informational. */
+} /* Finish protected account label. */
+@media (max-width: 980px) { /* Start responsive styles for tablets and smaller laptops. */
+.stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } /* Reduce dashboard statistics to two columns. */
+.two-col, .sale-layout { grid-template-columns: 1fr; } /* Stack the major panels vertically on smaller screens. */
+.sidebar { width: 220px; } /* Slightly narrow the sidebar on medium screens. */
+} /* Finish medium-screen responsive styles. */
+@media (max-width: 720px) { /* Start responsive styles for phones. */
+.app-shell { display: block; } /* Stack the sidebar above the main content. */
+.sidebar { width: 100%; height: auto; position: static; } /* Turn the desktop sidebar into a normal mobile header section. */
+.sidebar-bottom { margin-top: 18px; } /* Add spacing above the mobile user controls. */
+.topbar { padding: 18px; } /* Reduce header padding on phones. */
+.content-area { padding: 18px; } /* Reduce content padding on phones. */
+.stats-grid { grid-template-columns: 1fr; } /* Stack statistic cards vertically on phones. */
+.product-grid { grid-template-columns: 1fr; } /* Show one product tile per row on phones. */
+.search-form { flex-wrap: wrap; } /* Allow search controls to wrap on narrow screens. */
+.receipt-meta { grid-template-columns: 1fr; } /* Stack receipt metadata on phones. */
+.receipt-actions { justify-content: stretch; flex-wrap: wrap; } /* Let receipt buttons wrap cleanly on phones. */
+.receipt-actions .btn { flex: 1; } /* Let receipt buttons share the row width on phones. */
+} /* Finish phone responsive styles. */
+@media print { /* Start print-specific receipt rules. */
+body { background: #fff; } /* Remove the screen background when printing. */
+.sidebar, .topbar, .receipt-actions { display: none !important; } /* Hide application navigation and controls from the printed receipt. */
+.content-area { padding: 0; } /* Remove page padding from the printed receipt. */
+.panel { box-shadow: none; border: 0; } /* Remove visual screen effects from printed receipts. */
+.receipt { max-width: none; } /* Allow the receipt to use the printable page width. */
+} /* Finish print styles. */
